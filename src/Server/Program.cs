@@ -3,8 +3,19 @@
 // Repository:https://github.com/blacksmoke26/csharp-graphql
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services
+  .AddGraphQLServer()
+  .AddQueryType<Query>();
+
 var app = builder.Build();
 
-app.MapGet("/", () => "Hello World!");
+app.MapGraphQL();
 
 app.Run();
+
+public class Query {
+  public string SayHello(string name = "World") {
+    return $"Hello {name}!";
+  }
+}
