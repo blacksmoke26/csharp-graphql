@@ -1,0 +1,9 @@
+###
+# @Author: Junaid Atari mj.atari@gmail.com
+# @Date: 2025-03-30 16:20:04
+###
+
+### Sample Query
+query {
+  sayHello (name: "Junaid Atari")
+}
