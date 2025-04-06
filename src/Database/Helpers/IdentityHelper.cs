@@ -9,7 +9,7 @@ using BCrypt.Net;
 using NanoidDotNet;
 using BC = BCrypt.Net.BCrypt;
 
-namespace Application.Helpers;
+namespace Database.Helpers;
 
 /// <summary>EncryptedPasswordResult represents the result of password encryption </summary>
 public struct EncryptedPasswordResult {
