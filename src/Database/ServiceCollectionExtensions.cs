@@ -15,17 +15,17 @@ public static class ServiceCollectionExtensions {
   /// <param name="config">The database configuration</param>
   /// <returns>The updated service collection instance</returns>
   public static IServiceCollection AddDatabase(this IServiceCollection services, DbConfiguration config) {
-    services.AddSingleton<ApplicationDbContext>(_ => {
+    services.AddTransient<ApplicationDbContext>(_ => {
       ApplicationDbContext instance = new(config);
       instance.Database.ExecuteSql($"SET timezone = '+00:00'");
       return instance;
     });
 
     // repos
-    services.AddSingleton<GenreRepository>();
-    services.AddSingleton<MovieRepository>();
-    services.AddSingleton<RatingRepository>();
-    services.AddSingleton<UserRepository>();
+    services.AddScoped<GenreRepository>();
+    services.AddScoped<MovieRepository>();
+    services.AddScoped<RatingRepository>();
+    services.AddScoped<UserRepository>();
 
     return services;
   }
