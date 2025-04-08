@@ -13,3 +13,8 @@ public struct LoginCredentialInput {
   [GraphQLDescription("The password")]
   public string Password { get; init; }
 }
+
+public struct UserLoginClaimPayload {
+  public string Jti { get; init; }
+  public string Role { get; init; }
+}

@@ -65,4 +65,7 @@ public partial class User : EntityBase {
 
   [InverseProperty("User")]
   public virtual ICollection<Rating> Ratings { get; set; } = new List<Rating>();
+
+  [NotMapped]
+  public virtual string FullName => $"{FirstName} {LastName}";
 }

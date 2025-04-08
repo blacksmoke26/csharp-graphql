@@ -5,6 +5,7 @@
 namespace Abstraction.Payloads.Auth;
 
 [GraphQLDescription("This response class contains the information regarding user and authorization")]
+
 public struct AuthLoginPayload {
   [JsonPropertyName("auth"), GraphQLDescription("The authorization details")]
   public AuthTokenResult Auth { get; init; }
@@ -14,6 +15,7 @@ public struct AuthLoginPayload {
 }
 
 [GraphQLDescription("This object represents the authorization information")]
+[GraphQLName("AuthTokenPayload")]
 public struct AuthTokenResult {
   [JsonPropertyName("token"), GraphQLDescription("The JWT authorization token")]
   public string Token { get; init; }
