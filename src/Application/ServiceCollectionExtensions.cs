@@ -3,6 +3,7 @@
 // Repository: https://github.com/blacksmoke26/csharp-graphql
 
 using Application.Services;
+using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Application;
@@ -20,7 +21,9 @@ public static class ServiceCollectionExtensions {
     services.AddScoped<MovieService>();
     services.AddScoped<RatingService>();
     services.AddScoped<UserService>();
-    
+
+    services.AddValidatorsFromAssemblyContaining<IApplicationMarker>(ServiceLifetime.Transient);
+
     return services;
   }
 }
