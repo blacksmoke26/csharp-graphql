@@ -2,15 +2,14 @@
 // Copyright (c) 2025 Junaid Atari, and contributors
 // Repository: https://github.com/blacksmoke26/csharp-graphql
 
-using Abstraction.Validators.Auth;
-using Application.Services;
+using Application.Domain.Validators.Auth;
 
-namespace Server.Resolvers.Auth;
+namespace Server.Resolvers.Auth.Mutations;
 
 [MutationType]
 public static class LoginMutation {
   [GraphQLDescription("Account authentication using credentials")]
-  public static async Task<AuthLoginPayload?> Login(
+  public static async Task<AuthLoginPayload?> AuthLogin(
     [UseFluentValidation, UseValidator<LoginCredentialInputValidator>]
     LoginCredentialInput input,
     IdentityService idService, AuthService authService,

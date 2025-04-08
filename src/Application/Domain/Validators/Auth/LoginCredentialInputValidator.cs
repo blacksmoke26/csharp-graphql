@@ -3,8 +3,9 @@
 // Repository: https://github.com/blacksmoke26/csharp-graphql
 
 using Abstraction.Inputs.Auth;
+using FluentValidation;
 
-namespace Abstraction.Validators.Auth;
+namespace Application.Domain.Validators.Auth;
 
 public class LoginCredentialInputValidator : AbstractValidator<LoginCredentialInput> {
   public LoginCredentialInputValidator() {

@@ -5,8 +5,6 @@
 
 using System.Text;
 using Application.Config;
-using Application.Constants;
-using Application.Services;
 using Database.Constants;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
