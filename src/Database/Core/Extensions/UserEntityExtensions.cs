@@ -76,6 +76,13 @@ public static class UserEntityExtensions {
     user.Metadata.LoggedInHistory.LastDate = DateTime.UtcNow;
     user.Metadata.LoggedInHistory.FailedCount = 0;
     user.Metadata.LoggedInHistory.SuccessCount += 1;
+    user.SetTokenInvalidateState(false);
+  }
+
+  /// <summary>An event method which invoked upon logout</summary>
+  /// <param name="user">The user entity</param>
+  public static void OnLogout(this User user) {
+    user.SetTokenInvalidateState(true);
   }
 
   /// <summary>An event method which invoked upon password changing</summary>
