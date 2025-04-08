@@ -6,9 +6,10 @@
 using System.Security.Claims;
 using Application.Objects;
 using Application.Services;
+using Microsoft.AspNetCore.Http;
 using Microsoft.IdentityModel.JsonWebTokens;
 
-namespace Server.Core.Extensions;
+namespace Application.Extensions;
 
 public static class HttpContextExtensions {
   /// <summary>
@@ -68,5 +69,14 @@ public static class HttpContextExtensions {
     UserIdentity instance = new();
     context.Items.Add(IdentityService.IdentityKey, instance);
     return instance;
+  }
+
+  /// <summary>
+  /// Returns the authenticated identity user instance
+  /// </summary>
+  /// <param name="context">HttpContext instance</param>
+  /// <returns>The user instance</returns>
+  public static User GetUser(this HttpContext context) {
+    return context.GetIdentity().User;
   }
 }
