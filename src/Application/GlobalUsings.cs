@@ -4,4 +4,8 @@
 
 // Global using directives
 
-global using Humanizer;
+global using Application.Core.Base;
+global using Database.Constants;
+global using Database.Core.Extensions;
+global using Database.Entities;
+global using Database.Repositories;
