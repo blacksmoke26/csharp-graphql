@@ -4,6 +4,7 @@
 
 using Abstraction;
 using Application;
+using Database;
 using Server.Core.Configurators;
 
 namespace Server.Core.Extensions;
@@ -13,10 +14,12 @@ public static class ApplicationBuilderExtensions {
   /// <param name="services">ServiceCollection instance</param>
   /// <param name="configuration">Application configuration</param>
   public static IServiceCollection InitBootstrapper(this IServiceCollection services, IConfiguration configuration) {
+    services.AddDatabase(configuration.GetRequiredSection("Database").Get<DbConfiguration>());
     services.AddAbstractions();
     services.AddApplication();
+    services.AddHttpContextAccessor();
 
-    DatabaseConfigurator.Configure(services, configuration);
+    AuthenticationConfigurator.Configure(services, configuration);
     GraphqlConfigurator.Configure(services, configuration);
 
     return services;

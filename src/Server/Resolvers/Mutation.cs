@@ -1,9 +1,9 @@
 ﻿// Licensed to the end users under one or more agreements.
 // Copyright (c) 2025 Junaid Atari, and contributors
-// Repository: https://github.com/blacksmoke26/csharp-graphql
+// Website: https://github.com/blacksmoke26/
 
-namespace Server.Resolvers.User;
+namespace Server.Resolvers;
 
 [MutationType]
-public static class Mutations {
+public static class Mutation {
 }

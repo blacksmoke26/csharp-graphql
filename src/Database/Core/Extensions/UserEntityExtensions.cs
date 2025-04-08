@@ -110,11 +110,4 @@ public static class UserEntityExtensions {
       .AddDays(3d)
       .CompareTo(DateTime.UtcNow) < 0;
   }
-
-  /// <summary>Invalidates the user token so </summary>
-  /// <param name="user">The user entity</param>
-  /// <param name="state">The user entity</param>
-  public static void SetTokenState(this User user, bool state) {
-    user.Metadata.Security.TokenInvalidate = state;
-  }
 }

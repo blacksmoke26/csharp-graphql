@@ -2,8 +2,12 @@
 // Copyright (c) 2025 Junaid Atari, and contributors
 // Repository: https://github.com/blacksmoke26/csharp-graphql
 
-namespace Server.Resolvers.Movies;
+namespace Application.Services;
 
-[MutationType]
-public static class Mutations {
+public struct LoginOptions {
+  /// <summary>The IP address</summary>
+  public string? IpAddress { get; init; }
+}
+
+public class UserService {
 }

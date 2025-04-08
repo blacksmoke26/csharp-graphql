@@ -2,11 +2,8 @@
 // Copyright (c) 2025 Junaid Atari, and contributors
 // Repository: https://github.com/blacksmoke26/csharp-graphql
 
-namespace Server.Resolvers.User;
+namespace Application.Services;
 
-[QueryType]
-public static class Queries {
-  public static string Me() {
-    throw new GraphQLException("Not implemented");
-  }
+public class GenreService : ServiceBase {
+  
 }

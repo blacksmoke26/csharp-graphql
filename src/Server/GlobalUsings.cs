@@ -7,3 +7,5 @@
 global using Abstraction.Inputs.Auth;
 global using Abstraction.Payloads.Auth;
 global using AppAny.HotChocolate.FluentValidation;
+global using HotChocolate.Authorization;
+global using Server.Core.Extensions;

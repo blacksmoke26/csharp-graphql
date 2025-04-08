@@ -1,7 +1,7 @@
 ﻿// Licensed to the end users under one or more agreements.
 // Copyright (c) 2025 Junaid Atari, and contributors
 // Repository:https://github.com/blacksmoke26/csharp-graphql
-// https://eduardocp.github.io/hot-chocolate-fluent-validation
+// Validation: https://eduardocp.github.io/hot-chocolate-fluent-validation
 
 using Abstraction;
 using Server.Core.Interfaces;
@@ -14,6 +14,9 @@ public abstract class GraphqlConfigurator : IApplicationServiceConfigurator {
     services.AddGraphQLServer()
       .AddAbstractions()
       .AddProjections()
+      .AddQueryType(q => q.Name("Query"))
+      .AddMutationType(q => q.Name("Mutation"))
+      .AddAuthorization()
       .AddGraphServerTypes()
       .AddFluentValidation(o => o.UseDefaultErrorMapper())
       .InitializeOnStartup();
