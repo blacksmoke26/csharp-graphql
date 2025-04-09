@@ -4,6 +4,7 @@
 
 using Database.Constants;
 using Database.Core.Base;
+using Database.Core.Extensions;
 
 namespace Database.Entities;
 
@@ -52,4 +53,18 @@ public partial class Movie : EntityBase {
 
   [ForeignKey("UserId"), InverseProperty("Movies")]
   public virtual User User { get; set; } = null!;
+
+  /// <inheritdoc/>
+  public override Task OnTrackChangesAsync(EntityState state, CancellationToken token = default) {
+    if (state is EntityState.Added) {
+      CreatedAt = DateTime.UtcNow;
+    }
+
+    if (state is EntityState.Added or EntityState.Modified) {
+      this.GenerateSlug();
+      UpdatedAt = DateTime.UtcNow;
+    }
+
+    return Task.CompletedTask;
+  }
 }
