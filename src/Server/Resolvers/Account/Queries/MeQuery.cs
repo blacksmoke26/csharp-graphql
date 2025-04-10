@@ -7,8 +7,9 @@ using Abstraction.Payloads.Account;
 namespace Server.Resolvers.Account.Queries;
 
 [QueryType]
-[Authorize(Policy = AuthPolicies.AuthPolicy)]
 public static class MeQuery {
+  [GraphQLDescription("Fetches the authenticated account information")]
+  [Authorize(Policy = AuthPolicies.AuthPolicy)]
   public static Task<MePayload> Me(IHttpContextAccessor httpContext) {
     var user = httpContext.HttpContext!.GetUser();
     

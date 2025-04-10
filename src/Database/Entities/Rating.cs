@@ -42,4 +42,15 @@ public partial class Rating : EntityBase {
 
   [ForeignKey("UserId"), InverseProperty("Ratings")]
   public virtual User User { get; set; } = null!;
+
+  /// <inheritdoc/>
+  public override Task OnTrackChangesAsync(EntityState state, CancellationToken token = default) {
+    if (state is EntityState.Added)
+      CreatedAt = DateTime.UtcNow;
+
+    if (state is EntityState.Added or EntityState.Modified)
+      UpdatedAt = DateTime.UtcNow;
+
+    return Task.CompletedTask;
+  }
 }

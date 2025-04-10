@@ -26,4 +26,35 @@ public sealed class UserRepository(ApplicationDbContext context) : RepositoryBas
   public Task<User?> GetByEmailAsync(string email, CancellationToken token = default) {
     return DbSet.AsNoTracking().FirstOrDefaultAsync(x => x.Email == email, token);
   }
+
+  /// <summary>
+  /// Fetch the user by Email address and request reset code
+  /// </summary>
+  /// <param name="email">The email address</param>
+  /// <param name="resetCode">The request reset code</param>
+  /// <param name="token">The cancellation token</param>
+  /// <returns>The fetched object, otherwise null if not found</returns>
+  public Task<User?> GetByEmailAndResetCodeAsync(string email, string resetCode, CancellationToken token = default) {
+    return DbSet.AsNoTracking().FirstOrDefaultAsync(user =>
+        user.Email == email
+        && user.Status == UserStatus.Active
+        && user.Metadata.Password.ResetCode == resetCode, token
+    );
+  }
+
+  /// <summary>
+  /// Fetch the user by Email address and activation code
+  /// </summary>
+  /// <param name="email">The email address</param>
+  /// <param name="code">The activation code</param>
+  /// <param name="token">The cancellation token</param>
+  /// <returns>The fetched object, otherwise null if not found</returns>
+  public Task<User?> GetByEmailAndActivationCodeAsync(string email, string code, CancellationToken token = default) {
+    return DbSet.AsNoTracking().FirstOrDefaultAsync(user =>
+        user.Email == email
+        && user.Status == UserStatus.Inactive
+        && user.Metadata.Activation.Pending == true
+        && user.Metadata.Activation.Code == code, token
+    );
+  }
 }

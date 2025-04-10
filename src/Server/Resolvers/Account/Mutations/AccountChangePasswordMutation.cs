@@ -8,9 +8,9 @@ using Application.Domain.Validators.Account;
 namespace Server.Resolvers.Account.Mutations;
 
 [MutationType]
-[Authorize(Policy = AuthPolicies.AuthPolicy)]
 public static class AccountChangePasswordMutation {
   [GraphQLDescription("Updates the account password")]
+  [Authorize(Policy = AuthPolicies.AuthPolicy)]
   public static async Task<bool> AccountChangePassword(
     [UseFluentValidation, UseValidator<ChangePasswordInputValidator>]
     ChangePasswordInput input, UserService userService,

@@ -8,9 +8,15 @@ using Server.Core.Interfaces;
 
 namespace Server.Core.Configurators;
 
+public struct GraphQlConfiguration {
+  public bool IncludeExceptionDetails { get; init; }
+}
+
 public abstract class GraphqlConfigurator : IApplicationServiceConfigurator {
   /// <inheritdoc/>
   public static void Configure(IServiceCollection services, IConfiguration config) {
+    var conf = config.GetSection("Graphql").Get<GraphQlConfiguration>();
+    
     services.AddGraphQLServer()
       .AddAbstractions()
       .AddProjections()
@@ -18,6 +24,8 @@ public abstract class GraphqlConfigurator : IApplicationServiceConfigurator {
       .AddMutationType(q => q.Name("Mutation"))
       .AddAuthorization()
       .AddGraphServerTypes()
+      .ModifyRequestOptions(opt =>
+        opt.IncludeExceptionDetails = conf.IncludeExceptionDetails)
       .AddFluentValidation(o => o.UseDefaultErrorMapper())
       .InitializeOnStartup();
   }

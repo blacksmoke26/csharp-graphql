@@ -2,9 +2,9 @@
 // Copyright (c) 2025 Junaid Atari, and contributors
 // Repository:https://github.com/blacksmoke26/csharp-graphql
 
-using Database.Constants;
 using Database.Core.Base;
 using Database.Core.EntityMetadata;
+using Database.Core.Extensions;
 
 namespace Database.Entities;
 
@@ -68,4 +68,18 @@ public partial class User : EntityBase {
 
   [NotMapped]
   public virtual string FullName => $"{FirstName} {LastName}";
+
+  /// <inheritdoc/>
+  public override Task OnTrackChangesAsync(EntityState state, CancellationToken token = default) {
+    if (state is EntityState.Added) {
+      this.GenerateAuthKey();
+      CreatedAt = DateTime.UtcNow;
+    }
+
+    if (state is EntityState.Added or EntityState.Modified) {
+      UpdatedAt = DateTime.UtcNow;
+    }
+
+    return Task.CompletedTask;
+  }
 }
