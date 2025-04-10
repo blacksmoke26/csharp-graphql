@@ -26,13 +26,16 @@ public static class IdentityHelper {
   public static HashType HashType => HashType.SHA384;
 
   /// <summary>The char. size of reset password code</summary>
-  public const int PasswordResetCodeSize = 8;
+  public const int PasswordResetCodeSize = 6;
   
   /// <summary>The char. size of reset password code</summary>
-  public const int ActivationCodeSize = 8;
+  public const int ActivationCodeSize = 6;
 
   /// <summary>The regex to validate the reset code</summary>
   public const string PasswordResetCodeRegex = "^[A-Z0-9]+$";
+
+  /// <summary>The regex to validate the activation code</summary>
+  public const string ActivationCodeRegex = "^[A-Z0-9]+$";
 
   /// <summary>Creates a SHA1 of the string</summary>
   /// <param name="str">The string to sha1</param>
