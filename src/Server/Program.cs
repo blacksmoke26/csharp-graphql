@@ -3,8 +3,12 @@
 // Repository:https://github.com/blacksmoke26/csharp-graphql
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.InitBootstrapper(builder.Configuration);
 var app = builder.Build();
 
-app.MapGet("/", () => "Hello World!");
+await app.InitializeDbAsync();
+
+app.UseBootstrapper();
 
 app.Run();
