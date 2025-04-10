@@ -13,6 +13,7 @@ public record FindOptions<TEntity, TResult> : FilterOptions<TEntity> where TEnti
 
 public record FilterOptions<TEntity> where TEntity : class {
   public List<Expression<Func<TEntity, bool>>> Where { get; set; } = [];
+  public Expression<Func<TEntity, bool>>? Condition { get; set; } = null;
   public Dictionary<bool, Expression<Func<TEntity, bool>>> AndWhere { get; set; } = new();
   public bool NoTracking { get; set; } = false;
   public Func<IQueryable<TEntity>, IQueryable<TEntity>>? Query { get; set; }
@@ -29,7 +30,7 @@ public abstract class RepositoryBase<TEntity>(ApplicationDbContext context)
   protected IQueryable<TEntity> CreateQueryFromFilterOptions(FilterOptions<TEntity> options) {
     var query = DbSet.AsQueryable();
 
-    if (options.NoTracking is true) {
+    if (options.NoTracking) {
       query = query.AsNoTracking();
     }
 
@@ -39,6 +40,10 @@ public abstract class RepositoryBase<TEntity>(ApplicationDbContext context)
 
     if (options.Limit is not null) {
       query = query.Take((int)options.Limit);
+    }
+
+    if (options.Condition is not null) {
+      query = query.Where(options.Condition);
     }
 
     if (options.Where.Count > 0) {
