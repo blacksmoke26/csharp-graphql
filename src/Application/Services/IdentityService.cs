@@ -3,12 +3,16 @@
 // Repository: https://github.com/blacksmoke26/csharp-graphql
 
 using Abstraction.Inputs.Auth;
+using Application.Config;
+using Application.Helpers;
 using HotChocolate;
+using Microsoft.Extensions.Configuration;
 
 namespace Application.Services;
 
 public class IdentityService(
-  UserRepository userRepository
+  UserRepository userRepository,
+  IConfiguration config
 ) : ServiceBase {
   /// <summary>HTTPContext items identity key name</summary>
   public const string IdentityKey = "%UserIdentity%";
@@ -30,7 +34,7 @@ public class IdentityService(
     if (user.Status != UserStatus.Active)
       ThrowBadStatusException(user.Status);
 
-    user.OnLogin();
+    user.OnLogin(options?.IpAddress);
     await userRepository.UpdateAsync(user, token);
 
     return user;
@@ -57,23 +61,18 @@ public class IdentityService(
     var user = await userRepository.GetByAuthKeyAsync(payload.Jti, token);
 
     // The missing user, which means the auth-key is no longer valid
-    if (user is null) {
-      throw new GraphQLException("Token may invalidated or user not found");
-    }
+    ErrorHelper.ThrowIfNull(user, "Token may invalidated or user not found");
 
     // Either a user is unverified or insufficient status
     if (user.Status != UserStatus.Active)
       ThrowBadStatusException(user.Status);
 
     // Forcefully logged-out user globally
-    if (user.Metadata.Security.TokenInvalidate) {
-      throw new GraphQLException("The token is either disabled or revoked. Please sign in again.");
-    }
+    ErrorHelper.ThrowIfTrue(user.Metadata.Security.TokenInvalidate,
+      "The token is either disabled or revoked. Please sign in again.");
 
     // Role mismatched. Tempered JWT "role" claim?
-    if (user.Role != payload.Role) {
-      throw new GraphQLException("Ineligible authorization role");
-    }
+    ErrorHelper.ThrowIfTrue(user.Role != payload.Role, "Ineligible authorization role");
 
     user.OnLogin(options?.IpAddress ?? null);
     await userRepository.UpdateAsync(user, token);
@@ -86,7 +85,14 @@ public class IdentityService(
   /// <param name="token">The cancellation token</param>
   /// <returns>The created user / null when failed</returns>
   public async Task<bool> LogoutAsync(User user, CancellationToken token = default) {
+    var authConfig = config.GetSection("Authentication").Get<AuthenticationConfiguration>();
+
+    if (authConfig.RefreshAuthKeyAfterLogout) {
+      user.GenerateAuthKey();
+    }
+
     user.OnLogout();
+
     return await userRepository.UpdateAsync(user, token) > 0;
   }
 }
