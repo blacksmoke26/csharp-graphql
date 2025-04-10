@@ -15,8 +15,4 @@
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
   </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Scalars\" />
-  </ItemGroup>
 </Project>
