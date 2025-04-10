@@ -24,21 +24,31 @@ public class AuthValidationMiddleware(
       return;
     }
 
-    // Fetch and validate user against claims
-    var user = await idService.LoginWithClaimAsync(new() {
-      Jti = authKey,
-      Role = role
-    }, new() {
-      IpAddress = context.Connection.RemoteIpAddress?.ToString(),
-    });
+    try {
+      // Fetch and validate user against claims
+      var user = await idService.LoginWithClaimAsync(new() {
+        Jti = authKey,
+        Role = role
+      }, new() {
+        IpAddress = context.Connection.RemoteIpAddress?.ToString(),
+      });
 
-    if (user is null) {
-      throw new GraphQLException("Authenticate failed due to the unknown reason");
+      ErrorHelper.ThrowIfNull(user, "Authenticate failed due to the unknown reason");
+
+      // Set user as authenticated identity
+      context.GetIdentity().SetIdentity(user);
+
+      await next(context);
     }
+    catch (Exception e) {
+      string? data = null;
 
-    // Set user as authenticated identity
-    context.GetIdentity().SetIdentity(user!);
-
-    await next(context);
+      await context.Response.WriteAsJsonAsync(new {
+        Errors = new[] {
+          new {e.Message,Code = "BAD_REQUEST"}
+        },
+        Data = data
+      });
+    }
   }
 }
