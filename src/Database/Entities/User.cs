@@ -2,7 +2,6 @@
 // Copyright (c) 2025 Junaid Atari, and contributors
 // Repository:https://github.com/blacksmoke26/csharp-graphql
 
-using Database.Constants;
 using Database.Core.Base;
 using Database.Core.EntityMetadata;
 using Database.Core.Extensions;
