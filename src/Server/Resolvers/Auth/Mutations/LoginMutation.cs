@@ -22,15 +22,17 @@ public static class LoginMutation {
     if (user is null) {
       throw new GraphQLException("Authenticate failed due to the unknown reason");
     }
-    
+
     return new AuthLoginPayload {
       Auth = authService.GenerateToken(user),
-      User = new UserAuthInfo {
-        Email = user.Email,
+      User = new() {
+        Id = user.Id,
         FirstName = user.FirstName,
         LastName = user.LastName,
-        Role = user.Role,
-        Fullname = user.GetFullName()!
+        Email = user.Email,
+        Status = user.Status,
+        CreatedAt = user.CreatedAt,
+        Role = user.ToRoleType()
       }
     };
   }
