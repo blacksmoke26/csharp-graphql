@@ -6,6 +6,7 @@
 using Abstraction;
 using Server.Core.Config;
 using Server.Core.Interfaces;
+using Server.Graphql.Filtering;
 
 namespace Server.Core.Configurators;
 
@@ -17,7 +18,7 @@ public abstract class GraphqlConfigurator : IApplicationServiceConfigurator {
     services.AddGraphQLServer()
       .AddAbstractions()
       .AddProjections()
-      .AddFiltering()
+      .AddGraphqlFiltering()
       .AddSorting()
       .AddPagingArguments()
       .AddMutationConventions(new MutationConventionOptions {
