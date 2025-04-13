@@ -4,7 +4,9 @@
 
 using Abstraction.Inputs.Auth;
 using Application.Config;
+using Application.Domain.Validators.Auth;
 using Application.Helpers;
+using FluentValidation;
 using HotChocolate;
 using Microsoft.Extensions.Configuration;
 
@@ -73,9 +75,6 @@ public class IdentityService(
 
     // Role mismatched. Tempered JWT "role" claim?
     ErrorHelper.ThrowIfTrue(user.Role != payload.Role, "Ineligible authorization role");
-
-    user.OnLogin(options?.IpAddress ?? null);
-    await userRepository.UpdateAsync(user, token);
 
     return user;
   }
