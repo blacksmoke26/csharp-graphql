@@ -4,7 +4,7 @@
 
 using Abstraction.Payloads.Rating;
 
-namespace Server.Resolvers.Movies.Filters;
+namespace Server.Resolvers.Ratings.Filters;
 
 public class RatingFilterInputType : FilterInputType<RatingPayload> {
   protected override void Configure(IFilterInputTypeDescriptor<RatingPayload> descriptor) {
