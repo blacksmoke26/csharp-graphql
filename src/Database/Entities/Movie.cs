@@ -34,15 +34,15 @@ public partial class Movie : EntityBase {
 
   /// <summary>Status</summary>
   [Column("status")]
-  public MovieStatus? Status { get; set; } = MovieStatus.Pending;
+  public MovieStatus Status { get; set; } = MovieStatus.Pending;
 
   /// <summary>Created</summary>
   [Column("created_at", TypeName = "timestamp without time zone")]
-  public DateTime? CreatedAt { get; set; }
+  public DateTime CreatedAt { get; set; }
 
   /// <summary>Updated</summary>
   [Column("updated_at", TypeName = "timestamp without time zone")]
-  public DateTime? UpdatedAt { get; set; }
+  public DateTime UpdatedAt { get; set; }
 
   [InverseProperty("Movie")]
   public virtual ICollection<Genre> Genres { get; set; } = new List<Genre>();

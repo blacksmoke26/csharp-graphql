@@ -10,7 +10,7 @@ namespace Server.Resolvers.Movies.Mutations;
 
 [MutationType]
 public class MovieUpdateMutation {
-  [Authorize(Policy = AuthPolicies.AuthPolicy)]
+  [Authorize(Policy = AuthPolicy.Trusted)]
   [UseFirstOrDefault]
   [UseProjection]
   [GraphQLDescription("Updates a single movie")]

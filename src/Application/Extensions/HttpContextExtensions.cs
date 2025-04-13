@@ -41,6 +41,15 @@ public static class HttpContextExtensions {
   }
 
   /// <summary>
+  /// Returns true when the authentication user role is admin
+  /// </summary>
+  /// <param name="context">HttpContext instance</param>
+  /// <returns>The user role, null otherwise</returns>
+  public static bool IsAdminRole(this HttpContext context) {
+    return context.GetRole() == UserRole.Admin;
+  }
+
+  /// <summary>
   /// Returns the authentication user primary key
   /// </summary>
   /// <param name="context">HttpContext instance</param>

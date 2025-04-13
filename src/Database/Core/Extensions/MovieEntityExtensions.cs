@@ -24,13 +24,13 @@ public static class MovieEntityExtensions {
   }
 
   public static IQueryable<MoviePayload> SelectMoviePayload(this IQueryable<Movie> source) {
-    return source.Select(movie => new MoviePayload() {
+    return source.Select(movie => new MoviePayload {
       Id = movie.Id,
       UserId = movie.UserId,
       Title = movie.Title,
-      Rating = (float?)movie.Ratings.Average(z => z.Score),
+      Rating = (float)movie.Ratings.Average(z => z.Score),
       YearOfRelease = movie.YearOfRelease,
-      Status = movie.Status.ToString(),
+      Status = movie.Status,
       Slug = movie.Slug,
       CreatedAt = movie.CreatedAt,
       UpdatedAt = movie.UpdatedAt,

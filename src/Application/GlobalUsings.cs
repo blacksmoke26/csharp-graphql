@@ -5,7 +5,7 @@
 // Global using directives
 
 global using Application.Core.Base;
-global using Database.Constants;
+global using Abstraction.Constants;
 global using Database.Core.Extensions;
 global using Database.Entities;
 global using Database.Repositories;
