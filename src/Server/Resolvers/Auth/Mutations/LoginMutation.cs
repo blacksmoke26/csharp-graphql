@@ -9,7 +9,7 @@ namespace Server.Resolvers.Auth.Mutations;
 [MutationType]
 public static class LoginMutation {
   [GraphQLDescription("Account authentication using credentials")]
-  public static async Task<AuthLoginPayload?> AuthLogin(
+  public static async Task<AuthLoginPayload?> LoginAsync(
     [UseFluentValidation, UseValidator<LoginCredentialInputValidator>]
     LoginCredentialInput input,
     IdentityService idService, AuthService authService,
@@ -25,12 +25,14 @@ public static class LoginMutation {
 
     return new AuthLoginPayload {
       Auth = authService.GenerateToken(user),
-      User = new UserAuthInfo {
-        Email = user.Email,
+      User = new() {
+        Id = user.Id,
         FirstName = user.FirstName,
         LastName = user.LastName,
-        Role = user.Role,
-        Fullname = $"{user.FirstName} {user.LastName}"
+        Email = user.Email,
+        Status = user.Status,
+        CreatedAt = user.CreatedAt,
+        Role = user.ToRoleType()
       }
     };
   }

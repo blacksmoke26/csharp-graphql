@@ -1,28 +1,29 @@
-﻿namespace Abstraction.Payloads.Account;
+﻿// Licensed to the end users under one or more agreements.
+// Copyright (c) 2025 Junaid Atari, and contributors
+// Repository: https://github.com/blacksmoke26/csharp-graphql
+
+namespace Abstraction.Payloads.Account;
 
 [GraphQLDescription("This class formats the successful user details response")]
 public struct MePayload {
-  [GraphQLDescription("The unique identifier")]
-  public required long Id { get; set; }
-
-  [GraphQLDescription("The user's first and last name")]
-  public required string Fullname { get; init; }
+  [GraphQLDescription("The unique identifier")] [ID]
+  public long Id { get; set; }
 
   [GraphQLDescription("The user's first name")]
-  public required string FirstName { get; init; }
+  public string FirstName { get; init; }
 
   [GraphQLDescription("The user's last name")]
-  public required string LastName { get; init; }
+  public string LastName { get; init; }
 
   [GraphQLDescription("The email address")]
-  public required string Email { get; init; }
+  public string Email { get; init; }
 
   [GraphQLDescription("The role name")]
-  public required string Role { get; init; }
+  public RoleType Role { get; init; }
 
   [GraphQLDescription("Status")]
-  public required string Status { get; set; }
+  public UserStatus Status { get; set; }
 
   [GraphQLDescription("Creation date")]
-  public required DateTime? CreatedAt { get; set; }
+  public DateTime? CreatedAt { get; set; }
 }

@@ -54,20 +54,17 @@ public partial class User : EntityBase {
 
   /// <summary>Created</summary>
   [Column("created_at", TypeName = "timestamp without time zone")]
-  public DateTime? CreatedAt { get; set; }
+  public DateTime CreatedAt { get; set; }
 
   /// <summary>Updated</summary>
   [Column("updated_at", TypeName = "timestamp without time zone")]
-  public DateTime? UpdatedAt { get; set; }
+  public DateTime UpdatedAt { get; set; }
 
   [InverseProperty("User")]
   public virtual ICollection<Movie> Movies { get; set; } = new List<Movie>();
 
   [InverseProperty("User")]
   public virtual ICollection<Rating> Ratings { get; set; } = new List<Rating>();
-
-  [NotMapped]
-  public virtual string FullName => $"{FirstName} {LastName}";
 
   /// <inheritdoc/>
   public override Task OnTrackChangesAsync(EntityState state, CancellationToken token = default) {

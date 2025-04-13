@@ -2,6 +2,8 @@
 // Copyright (c) 2025 Junaid Atari, and contributors
 // Repository:https://github.com/blacksmoke26/csharp-graphql
 
+using Abstraction.Payloads.Account;
+
 namespace Database.Core.Extensions;
 
 /// The class represents the extensions methods for 'User' entity
@@ -116,5 +118,38 @@ public static class UserEntityExtensions {
       .ToUniversalTime()
       .AddDays(3d)
       .CompareTo(DateTime.UtcNow) < 0;
+  }
+
+  public static string? GetFullName(this User? user) {
+    return user?.FirstName is null ? null : string.Concat(user.FirstName, " ", user.LastName);
+  }
+
+  /// <summary>
+  /// Converts the role into role type
+  /// </summary>
+  /// <param name="user">The user entity</param>
+  /// <returns>The converted value</returns>
+  public static RoleType ToRoleType(this User user) {
+    return Enum.Parse<RoleType>(user.Role.Pascalize());
+  }
+
+  public static IQueryable<MePayload> SelectMePayload(this IQueryable<User> source) {
+    return source.Select(user => new MePayload {
+      Id = user.Id,
+      FirstName = user.FirstName,
+      LastName = user.LastName,
+      Email = user.Email,
+      Role = user.ToRoleType(),
+      Status = user.Status,
+      CreatedAt = user.CreatedAt
+    });
+  }
+
+  public static IQueryable<UserPayload> SelectUserPayload(this IQueryable<User> source) {
+    return source.Select(user => new UserPayload {
+      Id = user.Id,
+      FirstName = user.FirstName,
+      LastName = user.LastName,
+    });
   }
 }

@@ -4,22 +4,26 @@
 // Validation: https://eduardocp.github.io/hot-chocolate-fluent-validation
 
 using Abstraction;
+using Server.Core.Config;
 using Server.Core.Interfaces;
+using Server.Graphql.Filtering;
 
 namespace Server.Core.Configurators;
-
-public struct GraphQlConfiguration {
-  public bool IncludeExceptionDetails { get; init; }
-}
 
 public abstract class GraphqlConfigurator : IApplicationServiceConfigurator {
   /// <inheritdoc/>
   public static void Configure(IServiceCollection services, IConfiguration config) {
     var conf = config.GetSection("Graphql").Get<GraphQlConfiguration>();
-    
+
     services.AddGraphQLServer()
       .AddAbstractions()
       .AddProjections()
+      .AddGraphqlFiltering()
+      .AddSorting()
+      .AddPagingArguments()
+      .AddMutationConventions(new MutationConventionOptions {
+        ApplyToAllMutations = false,
+      })
       .AddQueryType(q => q.Name("Query"))
       .AddMutationType(q => q.Name("Mutation"))
       .AddAuthorization()

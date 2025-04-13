@@ -15,7 +15,7 @@ public record FilterOptions<TEntity> where TEntity : class {
   public List<Expression<Func<TEntity, bool>>> Where { get; set; } = [];
   public Expression<Func<TEntity, bool>>? Condition { get; set; } = null;
   public Dictionary<bool, Expression<Func<TEntity, bool>>> AndWhere { get; set; } = new();
-  public bool NoTracking { get; set; } = false;
+  public bool NoTracking { get; set; } = true;
   public Func<IQueryable<TEntity>, IQueryable<TEntity>>? Query { get; set; }
   public Dictionary<Expression<Func<TEntity, object>>, SortOrder> Order { get; set; } = new();
   public List<Expression<Func<TEntity, object>>> Include { get; set; } = [];
@@ -116,6 +116,15 @@ public abstract class RepositoryBase<TEntity>(ApplicationDbContext context)
   }
 
   /// <summary>
+  /// Returns the queryable source
+  /// </summary>
+  public IQueryable<TEntity> GetQueryable(FilterOptions<TEntity>? options = null) {
+    return options != null
+      ? CreateQueryFromFilterOptions(options)
+      : DbSet.AsNoTracking();
+  }
+
+  /// <summary>
   /// Asynchronously returns the first element of a sequence, or a default value if the sequence contains no elements.
   /// </summary>
   /// <param name="options">The find options.</param>
@@ -124,6 +133,18 @@ public abstract class RepositoryBase<TEntity>(ApplicationDbContext context)
   public Task<TEntity?> GetOrDefaultAsync(
     FindOptions<TEntity, TEntity> options, CancellationToken token = default) {
     return CreateProjectedQuery(options).FirstOrDefaultAsync(token);
+  }
+
+  /// <summary>
+  /// Asynchronously returns the first element of a sequence, or a default value if the sequence contains no elements.
+  /// </summary>
+  /// <param name="predicate">A function to test each element for a condition.</param>
+  /// <param name="token">The cancellation token</param>
+  /// <returns>The found record, null if there is not</returns>
+  public Task<TEntity?> GetOrDefaultAsync(
+    Expression<Func<TEntity, bool>> predicate,
+    CancellationToken token = default) {
+    return GetQueryable().Where(predicate).FirstOrDefaultAsync(token);
   }
 
   /// <summary>
