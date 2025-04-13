@@ -4,8 +4,6 @@
 
 using Abstraction.Inputs.Identity;
 using Application.Domain.Validators.Identity;
-using Database.Core.Extensions;
-using Database.Repositories;
 
 namespace Server.Resolvers.Identity.Mutations;
 
