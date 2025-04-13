@@ -5,7 +5,7 @@
 namespace Abstraction.Inputs.Auth;
 
 [GraphQLDescription("Use to login the existing user with credentials")]
-[GraphQLName("LoginInput")]
+[GraphQLName("Credentials")]
 [InputObjectType]
 public struct LoginCredentialInput {
   [GraphQLDescription("The email address")]
