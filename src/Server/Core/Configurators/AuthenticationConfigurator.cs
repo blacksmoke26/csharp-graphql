@@ -5,7 +5,6 @@
 
 using System.Text;
 using Application.Config;
-using Database.Constants;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Server.Core.Interfaces;
@@ -40,15 +39,15 @@ public abstract class AuthenticationConfigurator : IApplicationServiceConfigurat
 
     services.AddAuthorization(x => {
       // Policy Type: Admin
-      x.AddPolicy(AuthPolicies.AdminPolicy, p
+      x.AddPolicy(AuthPolicy.Admin, p
         => p.RequireRole(UserRole.Admin));
 
       // Policy Type: User
-      x.AddPolicy(AuthPolicies.UserPolicy, p
+      x.AddPolicy(AuthPolicy.User, p
         => p.RequireRole(UserRole.User));
 
       // Policy Type: Trusted
-      x.AddPolicy(AuthPolicies.AuthPolicy, p
+      x.AddPolicy(AuthPolicy.Trusted, p
         => p.RequireRole(UserRole.Admin, UserRole.User));
     });
 

@@ -10,7 +10,7 @@ namespace Server.Resolvers.Movies.Mutations;
 
 [MutationType]
 public class MovieCreateMutation {
-  [Authorize(Policy = AuthPolicies.AuthPolicy)]
+  [Authorize(Policy = AuthPolicy.Trusted)]
   [UseFirstOrDefault]
   [UseProjection]
   [GraphQLDescription("Creates a single movie")]

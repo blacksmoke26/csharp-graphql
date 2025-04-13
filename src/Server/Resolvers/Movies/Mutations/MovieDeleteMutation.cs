@@ -8,7 +8,7 @@ namespace Server.Resolvers.Movies.Mutations;
 
 [MutationType]
 public class MovieDeleteMutation {
-  [Authorize(Policy = AuthPolicies.AuthPolicy)]
+  [Authorize(Policy = AuthPolicy.Trusted)]
   [GraphQLDescription("Deletes a movie")]
   public async Task<bool> MovieDeleteAsync(
     [ID(nameof(Movie))]

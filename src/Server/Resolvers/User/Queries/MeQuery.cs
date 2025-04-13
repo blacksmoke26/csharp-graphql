@@ -9,17 +9,17 @@ namespace Server.Resolvers.User.Queries;
 [QueryType]
 public static class MeQuery {
   [GraphQLDescription("Fetches the authenticated account information")]
-  [Authorize(Policy = AuthPolicies.AuthPolicy)]
+  [Authorize(Policy = AuthPolicy.Trusted)]
   public static Task<MePayload> Me(IHttpContextAccessor httpContext) {
     var user = httpContext.HttpContext!.GetUser();
-    
+
     return Task.FromResult(new MePayload {
       Id = user.Id,
       FirstName = user.FirstName,
       LastName = user.LastName,
       Email = user.Email,
-      Role = user.Role,
-      Status = user.Status.ToString(),
+      Role = user.ToRoleType(),
+      Status = user.Status,
       CreatedAt = user.CreatedAt
     });
   }

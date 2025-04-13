@@ -4,7 +4,6 @@
 
 using Abstraction.Inputs.Identity;
 using Application.Domain.Validators.Identity;
-using Database.Constants;
 
 namespace Server.Resolvers.Account.Mutations;
 
