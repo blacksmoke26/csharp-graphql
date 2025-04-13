@@ -13,6 +13,7 @@ public class MovieUpdateMutation {
   [Authorize(Policy = AuthPolicies.AuthPolicy)]
   [UseFirstOrDefault]
   [UseProjection]
+  [GraphQLDescription("Updates a single movie")]
   public async Task<IQueryable<MoviePayload>> MovieUpdateAsync(
     [UseFluentValidation, UseValidator<MovieUpdateInputValidator>]
     MovieUpdateInput input,
