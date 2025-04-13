@@ -15,4 +15,5 @@ global using Database.Core.Extensions;
 global using Database.Repositories;
 global using HotChocolate.Authorization;
 global using HotChocolate.Data.Filters;
+global using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 global using Server.Core.Extensions;

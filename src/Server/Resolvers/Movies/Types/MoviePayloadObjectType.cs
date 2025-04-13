@@ -7,7 +7,8 @@ using Abstraction.Payloads.Account;
 using Abstraction.Payloads.Genre;
 using Abstraction.Payloads.Movie;
 using Abstraction.Payloads.Rating;
-using Server.Resolvers.Ratings.Filters;
+using Server.Resolvers.Ratings.Filtering;
+using Server.Resolvers.Ratings.Sorting;
 
 namespace Server.Resolvers.Movies.Types;
 
@@ -44,6 +45,7 @@ public class MoviePayloadObjectType : ObjectType<MoviePayload> {
       })
       .UseProjection()
       .UseFiltering<RatingFilterInputType>()
+      .UseSorting<RatingSortInputType>()
       .Resolve(IQueryable<RatingPayload> (context) => {
         var parent = context.Parent<MoviePayload>();
         return context.Service<RatingRepository>()

@@ -1,0 +1,11 @@
+﻿<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="delete-bin" type="BatchConfigurationType" factoryName="Batch" activateToolWindowBeforeRun="false">
+    <module name="rider.module" />
+    <option name="INTERPRETER_OPTIONS" value="" />
+    <option name="WORKING_DIRECTORY" value="./src/Server" />
+    <option name="PARENT_ENVS" value="true" />
+    <option name="SCRIPT_NAME" value="delete-bin.bat" />
+    <option name="PARAMETERS" value="" />
+    <method v="2" />
+  </configuration>
+</component>
