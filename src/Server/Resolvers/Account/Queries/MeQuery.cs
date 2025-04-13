@@ -15,7 +15,6 @@ public static class MeQuery {
     
     return Task.FromResult(new MePayload {
       Id = user.Id,
-      Fullname = user.FullName,
       FirstName = user.FirstName,
       LastName = user.LastName,
       Email = user.Email,
