@@ -48,7 +48,7 @@ public class UserIdentity : IIdentity {
   public bool IsAuthenticated => _user is not null;
 
   /// <inheritdoc/>
-  public string? Name => _user?.FullName ?? null;
+  public string? Name => _user?.FirstName ?? null;
 
   /// <summary>
   /// Checks whatever the authenticated user is admin user or not
