@@ -34,7 +34,7 @@ public partial class Movie : EntityBase {
 
   /// <summary>Status</summary>
   [Column("status")]
-  public MovieStatus? Status { get; set; } = MovieStatus.Pending;
+  public MovieStatus Status { get; set; } = MovieStatus.Pending;
 
   /// <summary>Created</summary>
   [Column("created_at", TypeName = "timestamp without time zone")]
