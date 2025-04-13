@@ -8,11 +8,11 @@ namespace Abstraction.Payloads.Genre;
 [GraphQLDescription("The movie genre")]
 public struct GenrePayload {
   [GraphQLDescription("The id of genre")] [ID]
-  public long? Id { get; set; }
+  public long Id { get; set; }
 
   [GraphQLDescription("The movie id of genre")]
-  public long? MovieId { get; set; }
+  public long MovieId { get; set; }
 
   [GraphQLDescription("The name of genre")]
-  public string? Name { get; set; }
+  public string Name { get; set; }
 }

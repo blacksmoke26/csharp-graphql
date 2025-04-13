@@ -9,48 +9,48 @@ using Abstraction.Payloads.Rating;
 namespace Abstraction.Payloads.Movie;
 
 [GraphQLName("Movie")]
-public record MoviePayload {
+public struct MoviePayload {
   private float _rating;
 
   [GraphQLDescription("The id of movie")] [ID] [IsProjected(true)]
-  public long? Id { get; set; }
+  public long Id { get; set; }
 
   [GraphQLDescription("The owner id of movie")] [ID] [IsProjected(true)]
-  public long? UserId { get; set; }
+  public long UserId { get; set; }
 
   [GraphQLDescription("The title of movie")]
-  public string? Title { get; set; }
+  public string Title { get; set; }
 
   [GraphQLDescription("The year of release")]
-  public short? YearOfRelease { get; set; }
+  public short YearOfRelease { get; set; }
 
   [GraphQLDescription("The slug of movie")]
-  public string? Slug { get; set; }
+  public string Slug { get; set; }
 
   [GraphQLDescription("Average rating")]
-  public float? Rating {
+  public float Rating {
     get => _rating;
-    set => _rating = float.Round(value ?? 0, 1);
+    set => _rating = float.Round(value, 1);
   }
 
   [GraphQLDescription("User's rating")]
-  public short? UserRating { get; set; }
+  public short UserRating { get; set; }
 
   [GraphQLDescription("The status of movie")]
-  public string? Status { get; set; }
+  public MovieStatus Status { get; set; }
 
   [GraphQLDescription("The movie created timestamp")]
-  public DateTime? CreatedAt { get; set; }
+  public DateTime CreatedAt { get; set; }
 
   [GraphQLDescription("The movie updated timestamp")]
-  public DateTime? UpdatedAt { get; set; }
+  public DateTime UpdatedAt { get; set; }
 
   [GraphQLDescription("The creator of movie")]
-  public UserPayload? User { get; set; }
+  public UserPayload User { get; set; }
 
   [GraphQLDescription("The genres of movie")]
-  public IEnumerable<GenrePayload> Genres { get; set; } = [];
+  public IEnumerable<GenrePayload> Genres { get; set; }
 
   [GraphQLDescription("The ratings of movie")]
-  public IEnumerable<RatingPayload> Ratings { get; set; } = [];
+  public IEnumerable<RatingPayload> Ratings { get; set; }
 }
