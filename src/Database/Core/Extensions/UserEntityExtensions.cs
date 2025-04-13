@@ -130,7 +130,7 @@ public static class UserEntityExtensions {
       FirstName = user.FirstName,
       LastName = user.LastName,
       Email = user.Email,
-      Role = user.Role,
+      Role = Enum.Parse<RoleType>(user.Role),
       Status = user.Status.ToString(),
       CreatedAt = user.CreatedAt
     });

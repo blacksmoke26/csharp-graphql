@@ -30,7 +30,7 @@ public static class MovieEntityExtensions {
       Title = movie.Title,
       Rating = (float?)movie.Ratings.Average(z => z.Score),
       YearOfRelease = movie.YearOfRelease,
-      Status = movie.Status.ToString(),
+      Status = movie.Status,
       Slug = movie.Slug,
       CreatedAt = movie.CreatedAt,
       UpdatedAt = movie.UpdatedAt,
