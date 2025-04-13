@@ -7,7 +7,7 @@ using Abstraction.Payloads.Account;
 using Abstraction.Payloads.Genre;
 using Abstraction.Payloads.Movie;
 using Abstraction.Payloads.Rating;
-using Server.Resolvers.Movies.Filters;
+using Server.Resolvers.Ratings.Filters;
 
 namespace Server.Resolvers.Movies.Types;
 
