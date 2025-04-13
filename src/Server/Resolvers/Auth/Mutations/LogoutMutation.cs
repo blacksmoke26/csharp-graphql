@@ -8,7 +8,7 @@ namespace Server.Resolvers.Auth.Mutations;
 public static class LogoutMutation {
   [GraphQLDescription("Logouts the user and invalidate the token")]
   [Authorize(Policy = AuthPolicies.AuthPolicy)]
-  public static async Task<bool> AuthLogout(
+  public static async Task<bool> LogoutAsync(
     IdentityService idService,
     IHttpContextAccessor httpContext, CancellationToken token
   ) {

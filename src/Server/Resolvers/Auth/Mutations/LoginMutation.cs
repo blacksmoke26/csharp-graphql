@@ -9,7 +9,7 @@ namespace Server.Resolvers.Auth.Mutations;
 [MutationType]
 public static class LoginMutation {
   [GraphQLDescription("Account authentication using credentials")]
-  public static async Task<AuthLoginPayload?> AuthLogin(
+  public static async Task<AuthLoginPayload?> LoginAsync(
     [UseFluentValidation, UseValidator<LoginCredentialInputValidator>]
     LoginCredentialInput input,
     IdentityService idService, AuthService authService,
@@ -22,7 +22,7 @@ public static class LoginMutation {
     if (user is null) {
       throw new GraphQLException("Authenticate failed due to the unknown reason");
     }
-
+    
     return new AuthLoginPayload {
       Auth = authService.GenerateToken(user),
       User = new UserAuthInfo {
@@ -30,7 +30,7 @@ public static class LoginMutation {
         FirstName = user.FirstName,
         LastName = user.LastName,
         Role = user.Role,
-        Fullname = $"{user.FirstName} {user.LastName}"
+        Fullname = user.GetFullName()!
       }
     };
   }
