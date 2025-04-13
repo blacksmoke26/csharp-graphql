@@ -4,7 +4,7 @@
 
 using Abstraction.Payloads.Account;
 
-namespace Server.Resolvers.Account.Queries;
+namespace Server.Resolvers.User.Queries;
 
 [QueryType]
 public static class MeQuery {

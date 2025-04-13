@@ -1,6 +1,14 @@
 ###
 # @Author: Junaid Atari mj.atari@gmail.com
 # @Date: 2025-03-30 16:20:04
+# See: https://blog.jetbrains.com/dotnet/2024/09/17/building-a-graphql-client-in-net-with-jetbrains-rider-and-strawberryshake/
 ###
 
 schema: http://localhost:5001/graphql
+extensions:
+  endpoints:
+    development:
+      url: http://localhost:5001/graphql
+      headers:
+        Authorization: Bearer ${TOKEN}
+documents: '**/*.graphql'

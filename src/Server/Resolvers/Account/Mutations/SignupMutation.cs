@@ -5,12 +5,12 @@
 using Abstraction.Inputs.Identity;
 using Application.Domain.Validators.Identity;
 
-namespace Server.Resolvers.Identity.Mutations;
+namespace Server.Resolvers.Account.Mutations;
 
 [MutationType]
 public static class SignupMutation {
   [GraphQLDescription("Creates a new user account")]
-  public static async Task<bool> Signup(
+  public static async Task<bool> AccountSignup(
     [UseFluentValidation, UseValidator<SignupInputValidator>]
     SignupInput input, UserService userService, CancellationToken token
   ) {

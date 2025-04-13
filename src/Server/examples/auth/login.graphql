@@ -1,0 +1,19 @@
+###
+# @Author: Junaid Atari mj.atari@gmail.com
+# @Date: 2025-03-30 16:20:04
+###
+
+#{
+#  "input": {
+#    "email": "admin@example.com",
+#    "password": "Password@123"
+#  }
+#}
+
+mutation Login ($input: CredentialsInput!) {
+  login(input: $input ) {
+    auth {
+      token
+    }
+  }
+}

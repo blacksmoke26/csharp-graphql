@@ -6,12 +6,12 @@ using Abstraction.Inputs.Identity;
 using Application.Domain.Validators.Identity;
 using Database.Constants;
 
-namespace Server.Resolvers.Identity.Mutations;
+namespace Server.Resolvers.Account.Mutations;
 
 [MutationType]
 public static class RequestResetPasswordMutation {
   [GraphQLDescription("Sends a request for resetting the account password")]
-  public static async Task<bool> RequestResetPassword(
+  public static async Task<bool> AccountRequestResetPassword(
     [UseFluentValidation, UseValidator<RequestResetPasswordInputValidator>]
     RequestResetPasswordInput input,
     UserRepository userRepo,
