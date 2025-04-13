@@ -5,7 +5,7 @@
 using System.Reflection;
 using HotChocolate.Types.Descriptors;
 
-namespace Server.Middleware;
+namespace Server.Graphql.Middleware;
 
 public static class UseToUpperObjectFieldDescriptorExtensions {
   public static IObjectFieldDescriptor UseToUpper(this IObjectFieldDescriptor descriptor) {
