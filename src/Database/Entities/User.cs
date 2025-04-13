@@ -66,9 +66,6 @@ public partial class User : EntityBase {
   [InverseProperty("User")]
   public virtual ICollection<Rating> Ratings { get; set; } = new List<Rating>();
 
-  [NotMapped]
-  public virtual string FullName => $"{FirstName} {LastName}";
-
   /// <inheritdoc/>
   public override Task OnTrackChangesAsync(EntityState state, CancellationToken token = default) {
     if (state is EntityState.Added) {
