@@ -9,11 +9,11 @@ namespace Abstraction.Constants;
 /// </summary>
 public static class AuthPolicy {
   /// <summary>Applicable to `Admin` role</summary>
-  public const string AdminPolicy = "Admin";
+  public const string Admin = "Admin";
 
   /// <summary>Applicable to `User` role</summary>
-  public const string UserPolicy = "User";
+  public const string User = "User";
 
   /// <summary>Applicable to signed-in users</summary>
-  public const string TrustedPolicy = "Trusted";
+  public const string Trusted = "Trusted";
 }
