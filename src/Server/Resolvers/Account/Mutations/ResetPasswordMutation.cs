@@ -5,12 +5,12 @@
 using Abstraction.Inputs.Identity;
 using Application.Domain.Validators.Identity;
 
-namespace Server.Resolvers.Identity.Mutations;
+namespace Server.Resolvers.Account.Mutations;
 
 [MutationType]
 public static class ResetPasswordMutation {
   [GraphQLDescription("Updates the account password using reset code")]
-  public static async Task<bool> ResetPassword(
+  public static async Task<bool> AccountResetPassword(
     [UseFluentValidation, UseValidator<ResetPasswordInputValidator>]
     ResetPasswordInput input,
     UserRepository userRepo,

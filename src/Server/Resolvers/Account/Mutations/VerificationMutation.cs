@@ -5,7 +5,7 @@
 using Abstraction.Inputs.Identity;
 using Application.Domain.Validators.Identity;
 
-namespace Server.Resolvers.Identity.Mutations;
+namespace Server.Resolvers.Account.Mutations;
 
 [MutationType]
 public static class AccountVerificationMutation {
