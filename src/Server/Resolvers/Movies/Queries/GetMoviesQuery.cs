@@ -7,7 +7,7 @@ using Abstraction.Payloads.Movie;
 using Database.Core.Base;
 using Database.Entities;
 using HotChocolate.Data.Sorting;
-using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
+using Server.Resolvers.Movies.Sorting;
 
 namespace Server.Resolvers.Movies.Queries;
 
@@ -17,7 +17,7 @@ public class GetMoviesQuery {
   [UsePaging(IncludeTotalCount = true, RequirePagingBoundaries = true)]
   [UseProjection]
   [UseFiltering]
-  [UseSorting]
+  [UseSorting<MovieSortInputType>]
   public IQueryable<MoviePayload> GetMovies(
     MovieRepository movieRepo, IFilterContext filterContext, IHttpContextAccessor contextAccessor,
     ISortingContext sortingContext

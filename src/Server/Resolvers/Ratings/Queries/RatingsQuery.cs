@@ -6,7 +6,6 @@ using Abstraction.Payloads.Rating;
 using Database.Core.Base;
 using Database.Entities;
 using HotChocolate.Data.Sorting;
-using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Server.Resolvers.Ratings.Sorting;
 
 namespace Server.Resolvers.Ratings.Queries;
