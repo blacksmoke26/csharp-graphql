@@ -38,11 +38,11 @@ public partial class Movie : EntityBase {
 
   /// <summary>Created</summary>
   [Column("created_at", TypeName = "timestamp without time zone")]
-  public DateTime? CreatedAt { get; set; }
+  public DateTime CreatedAt { get; set; }
 
   /// <summary>Updated</summary>
   [Column("updated_at", TypeName = "timestamp without time zone")]
-  public DateTime? UpdatedAt { get; set; }
+  public DateTime UpdatedAt { get; set; }
 
   [InverseProperty("Movie")]
   public virtual ICollection<Genre> Genres { get; set; } = new List<Genre>();

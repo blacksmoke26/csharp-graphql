@@ -31,11 +31,11 @@ public partial class Rating : EntityBase {
 
   /// <summary>Created</summary>
   [Column("created_at", TypeName = "timestamp without time zone")]
-  public DateTime? CreatedAt { get; set; }
+  public DateTime CreatedAt { get; set; }
 
   /// <summary>Updated</summary>
   [Column("updated_at", TypeName = "timestamp without time zone")]
-  public DateTime? UpdatedAt { get; set; }
+  public DateTime UpdatedAt { get; set; }
 
   [ForeignKey("MovieId"), InverseProperty("Ratings")]
   public virtual Movie Movie { get; set; } = null!;
