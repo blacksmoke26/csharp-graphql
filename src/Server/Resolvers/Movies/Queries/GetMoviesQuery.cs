@@ -4,7 +4,10 @@
 // Projection: https://stackoverflow.com/questions/70651225/using-projections-without-returning-iqueryable-graphql-hotchocolate
 
 using Abstraction.Payloads.Movie;
-using Database.Constants;
+using Database.Core.Base;
+using Database.Entities;
+using HotChocolate.Data.Sorting;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Server.Resolvers.Movies.Queries;
 
@@ -14,9 +17,27 @@ public class GetMoviesQuery {
   [UsePaging(IncludeTotalCount = true, RequirePagingBoundaries = true)]
   [UseProjection]
   [UseFiltering]
-  public IQueryable<MoviePayload> GetMovies(MovieRepository movieRepo) {
-    return movieRepo.GetQueryable(new() {
-      Condition = movie => movie.Status == MovieStatus.Published
-    }).SelectMoviePayload();
+  [UseSorting]
+  public IQueryable<MoviePayload> GetMovies(
+    MovieRepository movieRepo, IFilterContext filterContext, IHttpContextAccessor contextAccessor,
+    ISortingContext sortingContext
+  ) {
+    var context = contextAccessor.HttpContext!;
+
+    filterContext.Handled(false);
+    sortingContext.Handled(false);
+
+    var filterOptions = new FilterOptions<Movie>();
+
+    filterOptions.AndWhere.Add(
+      !context.IsAdminRole(),
+      movie => movie.Status == MovieStatus.Published
+    );
+
+    if (!sortingContext.IsDefined) {
+      filterOptions.Order.Add(x => x.CreatedAt, SortOrder.Descending);
+    }
+
+    return movieRepo.GetQueryable(filterOptions).SelectMoviePayload();
   }
 }
