@@ -124,14 +124,23 @@ public static class UserEntityExtensions {
     return user?.FirstName is null ? null : string.Concat(user.FirstName, " ", user.LastName);
   }
 
+  /// <summary>
+  /// Converts the role into role type
+  /// </summary>
+  /// <param name="user">The user entity</param>
+  /// <returns>The converted value</returns>
+  public static RoleType ToRoleType(this User user) {
+    return Enum.Parse<RoleType>(user.Role.Pascalize());
+  }
+
   public static IQueryable<MePayload> SelectMePayload(this IQueryable<User> source) {
     return source.Select(user => new MePayload {
       Id = user.Id,
       FirstName = user.FirstName,
       LastName = user.LastName,
       Email = user.Email,
-      Role = Enum.Parse<RoleType>(user.Role),
-      Status = user.Status.ToString(),
+      Role = user.ToRoleType(),
+      Status = user.Status,
       CreatedAt = user.CreatedAt
     });
   }
