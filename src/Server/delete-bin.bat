@@ -1,0 +1,1 @@
+IObitUnlocker.exe /Delete /Normal "%cd%\bin"
