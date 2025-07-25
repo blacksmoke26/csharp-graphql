@@ -9,6 +9,7 @@ var app = builder.Build();
 
 await app.InitializeDbAsync();
 
+// Configure the HTTP request pipeline.
 app.UseBootstrapper();
 
 app.Run();
