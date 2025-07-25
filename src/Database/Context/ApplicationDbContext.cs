@@ -13,14 +13,25 @@ public partial class ApplicationDbContext : DbContext {
   /// <summary>The database configuration</summary>
   private readonly DbConfiguration _config;
 
+  /// <summary>
+  /// Class constructor
+  /// </summary>
   public ApplicationDbContext() {
   }
 
+  /// <summary>
+  /// Class constructor
+  /// </summary>
+  /// <param name="config">Database configuration</param>
   public ApplicationDbContext(DbConfiguration config) {
     _config = config;
     AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
   }
 
+  /// <summary>
+  /// Class constructor
+  /// </summary>
+  /// <param name="options">Database options</param>
   public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
     : base(options) {
   }
